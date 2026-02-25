@@ -494,7 +494,7 @@ ul { list-style: none; }
   position: relative;
 }
 
-.about-image-placeholder {
+.about-image {
   width: 100%;
   aspect-ratio: 4 / 5;
   border-radius: var(--border-radius);
@@ -508,17 +508,12 @@ ul { list-style: none; }
   border: 1px solid var(--color-border);
 }
 
-.placeholder-icon {
-  font-size: 5rem;
-  animation: gentleBob 3s ease-in-out infinite;
-}
-
 @keyframes gentleBob {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-8px); }
 }
 
-.about-image-placeholder p {
+.about-image p {
   color: var(--color-text-muted);
   font-size: 0.85rem;
   letter-spacing: 1px;
@@ -762,32 +757,16 @@ ul { list-style: none; }
   cursor: pointer;
 }
 
-.gallery-large {
-  grid-column: span 2;
-}
-
-.gallery-placeholder {
+.gallery-item img {
   width: 100%;
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
-  transition: var(--transition-slow);
+  object-fit: cover;
+  border-radius: 12px;
+  display: block;
 }
 
-.gallery-placeholder span { font-size: 3rem; }
-
-.gallery-placeholder p {
-  color: rgba(255, 255, 255, 0.9);
-  font-weight: 600;
-  font-size: 0.9rem;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
-}
-
-.gallery-item:hover .gallery-placeholder {
-  transform: scale(1.05);
+.gallery-large {
+  grid-column: span 2;
 }
 
 /* ---------- Testimonials ---------- */
