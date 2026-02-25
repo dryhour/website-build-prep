@@ -2,7 +2,6 @@
    SUNRISE CAFE & BAKERY — Demo Website Scripts
    Artisan Bakery & Brunch Cafe | Austin, TX
    ============================================================ */
-
    document.addEventListener('DOMContentLoaded', () => {
     // ==================== NAVBAR ====================
     const navbar = document.getElementById('navbar');
@@ -148,27 +147,40 @@
     // ==================== NEWSLETTER FORM ====================
     const newsletterForm = document.getElementById('newsletterForm');
     if (newsletterForm) {
-      newsletterForm.addEventListener('submit', (e) => {
+      newsletterForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         const input = newsletterForm.querySelector('input[type="email"]');
         const btn = newsletterForm.querySelector('button');
         const email = input.value.trim();
   
         if (email) {
-          // Formspree placeholder — swap the action URL to connect:
-          // newsletterForm.action = 'https://formspree.io/f/YOUR_FORM_ID';
-          // newsletterForm.submit();
-  
-          btn.textContent = 'Subscribed!';
-          btn.style.background = 'linear-gradient(135deg, #6aab73, #3d8b4f)';
-          input.value = '';
-          input.placeholder = 'Thanks! Check your inbox.';
-  
-          setTimeout(() => {
-            btn.textContent = 'Subscribe';
-            btn.style.background = '';
-            input.placeholder = 'Your email address';
-          }, 3000);
+          try {
+            const response = await fetch('https://formspree.io/f/mwvnykgz', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+              body: JSON.stringify({ email }),
+            });
+
+            if (response.ok) {
+              btn.textContent = 'Subscribed!';
+              btn.style.background = 'linear-gradient(135deg, #6aab73, #3d8b4f)';
+              input.value = '';
+              input.placeholder = 'Thanks! Check your inbox.';
+      
+              setTimeout(() => {
+                btn.textContent = 'Subscribe';
+                btn.style.background = '';
+                input.placeholder = 'Your email address';
+              }, 3000);
+            } else {
+              btn.textContent = 'Try again.';
+            }
+    
+            
+          } catch (err) {
+            btn.textContent = 'Err';
+          }
+          
         }
       });
     }
@@ -194,12 +206,20 @@
   
     // ==================== HERO PARALLAX EFFECT ====================
     const heroContent = document.querySelector('.hero-content');
-    if (heroContent) {
+    const heroImgContent = document.querySelector('.hero-image');
+    if (heroContent && heroImgContent) {
+
+      heroContent.style.transition = 'none';
+      heroImgContent.style.transition = 'none';
+
       window.addEventListener('scroll', () => {
         if (window.scrollY < window.innerHeight) {
           const offset = window.scrollY * 0.3;
           heroContent.style.transform = `translateY(${offset}px)`;
+          heroImgContent.style.transform = `translateY(${offset}px)`;
+
           heroContent.style.opacity = 1 - (window.scrollY / (window.innerHeight * 0.8));
+          heroImgContent.style.opacity = 1 - (window.scrollY / (window.innerHeight * 0.8));
         }
       }, { passive: true });
     }
