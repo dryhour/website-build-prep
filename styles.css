@@ -794,10 +794,7 @@ ul { list-style: none; }
   }
   
   .hero-image {
-    width: 100%;
-    max-width: 400px;
-    z-index: 0;
-    aspect-ratio: 4 / 3;
+    display: none;
   }
 }
 
